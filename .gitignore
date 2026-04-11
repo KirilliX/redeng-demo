@@ -1,0 +1,10 @@
+# Workspace-level OS and tool artifacts
+.DS_Store
+**/.DS_Store
+
+# Local Playwright captures
+.playwright-cli/
+**/.playwright-cli/
+
+# Local output folders
+**/output/
