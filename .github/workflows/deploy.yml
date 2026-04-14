@@ -3,21 +3,31 @@ name: Deploy to VPS
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      command:
+        description: 'Команда на сервере (пусто = деплой)'
+        required: false
+        default: ''
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to server
+      - name: Deploy or run command
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /var/www/redeng-demo/redeng
-            git pull origin main
-            npm ci
-            npm run build
-            pm2 restart redeng || pm2 start npm --name "redeng" -- start
-            pm2 save
+            if [ -n "${{ github.event.inputs.command }}" ]; then
+              ${{ github.event.inputs.command }}
+            else
+              cd /var/www/redeng-demo/redeng
+              git pull origin main
+              npm ci
+              npm run build
+              pm2 restart redeng || pm2 start npm --name "redeng" -- start
+              pm2 save
+            fi
