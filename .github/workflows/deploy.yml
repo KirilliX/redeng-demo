@@ -21,8 +21,9 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            if [ -n "${{ github.event.inputs.command }}" ]; then
-              ${{ github.event.inputs.command }}
+            CUSTOM_CMD='${{ github.event.inputs.command }}'
+            if [ -n "$CUSTOM_CMD" ]; then
+              eval "$CUSTOM_CMD"
             else
               cd /var/www/redeng-demo/redeng
               git pull origin main
