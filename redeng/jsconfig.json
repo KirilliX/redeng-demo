@@ -22,8 +22,5 @@
     "dist",
     "src/vite-plugins",
     "src/components/ui",
-    "src/api/base44Client.js",
-    "src/lib/AuthContext.jsx",
-    "src/lib/app-params.js"
   ]
 }
