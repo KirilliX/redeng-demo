@@ -25,8 +25,10 @@ jobs:
             if [ -n "$CUSTOM_CMD" ]; then
               eval "$CUSTOM_CMD"
             else
-              cd /var/www/redeng-demo/redeng
+              cd /var/www/redeng-demo
+              git reset --hard HEAD
               git pull origin main
+              cd redeng
               npm ci
               npm run build
               pm2 restart redeng || pm2 start npm --name "redeng" -- start
