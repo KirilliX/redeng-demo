@@ -8,6 +8,7 @@ import { initializeTracking } from "@/lib/utm";
 import { queryClientInstance } from "@/lib/query-client";
 import { CATALOG_PATH, CRM_PATH } from "@/lib/routes";
 import PageNotFound from "@/lib/PageNotFound";
+import HomePage from "@/pages/HomePage";
 import CatalogPage from "@/pages/CatalogPage";
 import CrmPage from "@/pages/CrmPage";
 import LandingPage from "@/pages/LandingPage";
@@ -32,7 +33,8 @@ function App() {
       <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <TrackingManager />
         <Routes>
-          <Route path="/" element={<CatalogPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/demo" element={<CatalogPage />} />
           <Route path={CATALOG_PATH} element={<CatalogPage />} />
           {utpCatalog.map((landing) => (
             <Route
